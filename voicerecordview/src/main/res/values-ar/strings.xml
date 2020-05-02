@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="slide_to_cancel">حرك للإلغاء</string>
+    <string name="your_message">رسالتك</string>
+
+    <bool name="is_right_to_left">true</bool>
+
+</resources>

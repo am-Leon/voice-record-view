@@ -2,6 +2,8 @@ package am.voicerecordview;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
@@ -28,6 +30,7 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -53,15 +56,18 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
     public interface RecordingListener {
         void onRecordingStarted();
 
+        void onLessThanSecond();
+
         void onRecordingLocked();
 
         void onRecordingCompleted();
 
         void onRecordingCanceled();
-
     }
 
-
+    private int RECORD_START = R.raw.record_start;
+    private int RECORD_FINISHED = R.raw.record_finished;
+    private int RECORD_ERROR = R.raw.record_error;
     private final String TAG = this.getClass().getName();
 
     private Context context;
@@ -74,7 +80,7 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
     private AppCompatImageButton btn_camera_pick, btn_voice, btn_stop, btn_send;
     private AppCompatImageView img_arrowSlide, img_mic, img_dustinCover, img_dustin, img_lock, img_lockArrow;
 
-    private Animation animBlink, animJump, animJumpFast;
+    private Animation animJump, animJumpFast;
     private boolean isDeleting;
     private boolean stopTrackingAction;
     private Handler handler;
@@ -83,6 +89,7 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
     private TimerTask timerTask;
     private Timer audioTimer;
     private SimpleDateFormat timeFormatter;
+    private long startTime, elapsedTime = 0;
 
     private float lastX, lastY;
     private float firstX, firstY;
@@ -95,7 +102,7 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
     private UserBehaviour userBehaviour = UserBehaviour.NONE;
     private RecordingListener recordingListener;
     private int screenWidth, screenHeight;
-    private boolean isLayoutDirectionRightToLeft = false;
+    private boolean isLayoutDirectionRightToLeft;
 
 
     public VoiceRecordView() {
@@ -169,6 +176,8 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
         view.removeAllViews();
         view.addView(LayoutInflater.from(view.getContext()).inflate(R.layout.voice_record_view, null));
 
+        isLayoutDirectionRightToLeft = view.getContext().getResources().getBoolean(R.bool.is_right_to_left);
+
         frameContainer = view.findViewById(R.id.frameContainer);
         layout_controls = view.findViewById(R.id.layout_controls);
         layout_slideCancel = view.findViewById(R.id.layout_slideCancel);
@@ -202,8 +211,8 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
 
         dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, view.getContext().getResources().getDisplayMetrics());
 
-        animBlink = AnimationUtils.loadAnimation(view.getContext(),
-                R.anim.blink);
+//        animBlink = AnimationUtils.loadAnimation(view.getContext(),
+//                R.anim.blink);
         animJump = AnimationUtils.loadAnimation(view.getContext(),
                 R.anim.jump);
         animJumpFast = AnimationUtils.loadAnimation(view.getContext(),
@@ -327,14 +336,15 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
                 break;
 
             case CANCELED:
-                txt_time.clearAnimation();
+//                txt_time.clearAnimation();
                 txt_time.setVisibility(View.INVISIBLE);
                 img_mic.setVisibility(View.INVISIBLE);
                 btn_stop.setVisibility(View.GONE);
                 layoutEffect2.setVisibility(View.GONE);
                 layoutEffect1.setVisibility(View.GONE);
 
-                timerTask.cancel();
+                if (timerTask != null)
+                    timerTask.cancel();
                 delete();
 
                 if (recordingListener != null)
@@ -344,7 +354,7 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
 
             case RELEASED:
             case LOCK_DONE:
-                txt_time.clearAnimation();
+//                txt_time.clearAnimation();
                 txt_time.setVisibility(View.INVISIBLE);
                 img_mic.setVisibility(View.INVISIBLE);
                 input_message.setVisibility(View.VISIBLE);
@@ -356,19 +366,31 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
                 layoutEffect2.setVisibility(View.GONE);
                 layoutEffect1.setVisibility(View.GONE);
 
-                timerTask.cancel();
+                if (timerTask != null)
+                    timerTask.cancel();
 
-                if (recordingListener != null)
-                    recordingListener.onRecordingCompleted();
+                elapsedTime = System.currentTimeMillis() - startTime;
+                if (isLessThanOneSecond(elapsedTime)) {
+                    playSound(RECORD_ERROR);
+
+                    if (recordingListener != null)
+                        recordingListener.onLessThanSecond();
+                } else {
+                    playSound(RECORD_FINISHED);
+
+                    if (recordingListener != null)
+                        recordingListener.onRecordingCompleted();
+                }
                 break;
         }
-
     }
 
 
     private void startRecord() {
         if (recordingListener != null)
             recordingListener.onRecordingStarted();
+
+        playSound(RECORD_START);
 
         stopTrackingAction = false;
         input_message.setVisibility(View.INVISIBLE);
@@ -381,7 +403,7 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
         layoutEffect2.setVisibility(View.VISIBLE);
         layoutEffect1.setVisibility(View.VISIBLE);
 
-        txt_time.startAnimation(animBlink);
+//        txt_time.startAnimation(animBlink);
         img_lockArrow.clearAnimation();
         img_lock.clearAnimation();
         img_lockArrow.startAnimation(animJumpFast);
@@ -404,6 +426,8 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
 
         audioTotalTime = 0;
         audioTimer.schedule(timerTask, 0, 1000);
+
+        startTime = System.currentTimeMillis();
     }
 
 
@@ -648,6 +672,32 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
 
     private void showErrorLog(String s) {
         Log.e(TAG, s);
+    }
+
+
+    private boolean isLessThanOneSecond(long time) {
+        return time <= 1000;
+    }
+
+
+    private void playSound(int soundRes) {
+        MediaPlayer player;
+        if (soundRes == 0)
+            return;
+
+        try {
+            player = new MediaPlayer();
+            AssetFileDescriptor afd = context.getResources().openRawResourceFd(soundRes);
+            if (afd == null) return;
+            player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            afd.close();
+            player.prepare();
+            player.start();
+            player.setOnCompletionListener(MediaPlayer::release);
+            player.setLooping(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

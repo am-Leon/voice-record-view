@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">VoiceRecordView</string>
+    <string name="app_name" translatable="false">VoiceRecordView</string>
     <string name="slide_to_cancel">Slide to cancel</string>
     <string name="your_message">Your Message</string>
+
+    <bool name="is_right_to_left">false</bool>
 </resources>

@@ -1,2 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="am.voicerecordview" />
+    package="am.voicerecordview">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+</manifest>

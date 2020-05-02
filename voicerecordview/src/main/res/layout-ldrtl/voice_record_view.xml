@@ -32,9 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="56dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="56dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:elevation="0dp"
                 android:gravity="center_vertical"
@@ -52,6 +52,16 @@
                     android:minHeight="40dp"
                     android:orientation="horizontal">
 
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_camera_pick"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/ripple_button_image"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_camera_pick" />
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/input_message"
                         android:layout_width="0dp"
@@ -60,25 +70,17 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:ems="10"
+                        android:gravity="end"
                         android:hint="@string/your_message"
                         android:inputType="textMultiLine"
                         android:maxLines="6"
-                        android:paddingStart="16dp"
+                        android:paddingStart="4dp"
                         android:paddingTop="8dp"
-                        android:paddingEnd="4dp"
+                        android:paddingEnd="16dp"
                         android:paddingBottom="8dp"
+                        android:textAlignment="viewEnd"
+                        android:textDirection="rtl"
                         android:textSize="16sp" />
-
-
-                    <androidx.appcompat.widget.AppCompatImageButton
-                        android:id="@+id/btn_camera_pick"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="bottom"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/ripple_button_image"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_camera_pick" />
 
                 </LinearLayout>
 
@@ -91,17 +93,10 @@
             android:id="@+id/layout_slideCancel"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="88dp"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="88dp"
             android:gravity="center"
             android:visibility="gone">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_arrowSlide"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_arrow_left" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txt_slide"
@@ -112,6 +107,14 @@
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_arrowSlide"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                android:src="@drawable/ic_arrow_left" />
+
         </LinearLayout>
 
 
@@ -119,8 +122,8 @@
             android:id="@+id/layoutEffect1"
             android:layout_width="70dp"
             android:layout_height="36dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="20dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             android:background="@android:color/white"
             android:visibility="gone" />
@@ -130,8 +133,8 @@
             android:id="@+id/layoutEffect2"
             android:layout_width="20dp"
             android:layout_height="36dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="90dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="90dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/shadow"
             android:visibility="gone" />
@@ -141,8 +144,8 @@
             android:id="@+id/img_mic"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="10dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="12dp"
             android:elevation="2dp"
             android:paddingBottom="2dp"
@@ -158,7 +161,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:elevation="2dp"
-            android:gravity="start|bottom"
+            android:gravity="end|bottom"
             android:orientation="vertical"
             android:translationZ="10dp">
 
@@ -166,6 +169,7 @@
                 android:id="@+id/img_dustinCover"
                 android:layout_width="32dp"
                 android:layout_height="4dp"
+                android:layout_marginEnd="16sp"
                 android:src="@drawable/dustbin_cover_ic"
                 android:visibility="gone" />
 
@@ -173,7 +177,7 @@
                 android:id="@+id/img_dustin"
                 android:layout_width="16dp"
                 android:layout_height="18dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/dustbin_wheel_ic"
                 android:visibility="gone" />
@@ -185,8 +189,8 @@
             android:id="@+id/txt_time"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
-            android:layout_gravity="bottom|start"
-            android:layout_marginStart="32dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="32dp"
             android:elevation="2dp"
             android:gravity="center"
             android:padding="8dp"
@@ -202,7 +206,7 @@
         android:id="@+id/card_lock"
         android:layout_width="56dp"
         android:layout_height="180dp"
-        android:layout_gravity="end|bottom"
+        android:layout_gravity="start|bottom"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
@@ -245,9 +249,9 @@
         android:id="@+id/btn_voice"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="6dp"
         android:background="@drawable/ripple_button_image_chat"
         android:elevation="2dp"
@@ -260,13 +264,14 @@
         android:id="@+id/btn_stop"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="6dp"
         android:background="@drawable/ripple_button_image_chat"
         android:elevation="2dp"
         android:padding="8dp"
+        android:rotation="180"
         android:src="@drawable/ic_send"
         android:translationZ="2dp"
         android:visibility="gone" />
@@ -276,13 +281,14 @@
         android:id="@+id/btn_send"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="6dp"
         android:background="@drawable/ripple_button_image_chat"
         android:elevation="2dp"
         android:padding="8dp"
+        android:rotation="180"
         android:src="@drawable/ic_send"
         android:translationZ="2dp"
         android:visibility="gone" />
