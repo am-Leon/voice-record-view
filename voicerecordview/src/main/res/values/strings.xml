@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VoiceRecordView</string>
+    <string name="slide_to_cancel">Slide to cancel</string>
+    <string name="your_message">Your Message</string>
+</resources>

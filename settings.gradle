@@ -1,0 +1,2 @@
+include ':app', ':voicerecordview'
+rootProject.name='VoiceRecordView'

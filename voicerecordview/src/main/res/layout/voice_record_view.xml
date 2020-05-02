@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr">
+
+    <FrameLayout
+        android:id="@+id/layout_controls"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@color/design_default_color_primary_dark">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/frameContainer"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:elevation="0dp"
+                tools:background="@color/design_default_color_primary" />
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="56dp"
+                android:layout_marginBottom="4dp"
+                android:elevation="0dp"
+                android:gravity="center_vertical"
+                android:translationZ="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_message"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="@string/your_message"
+                        android:inputType="textMultiLine"
+                        android:maxLines="6"
+                        android:paddingStart="16dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="8dp"
+                        android:textSize="16sp" />
+
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_camera_pick"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/ripple_button_image"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_camera_pick" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_slideCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="88dp"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_arrowSlide"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_arrow_left" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txt_slide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slide_to_cancel"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/layoutEffect1"
+            android:layout_width="70dp"
+            android:layout_height="36dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/white"
+            android:visibility="gone" />
+
+
+        <View
+            android:id="@+id/layoutEffect2"
+            android:layout_width="20dp"
+            android:layout_height="36dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="90dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shadow"
+            android:visibility="gone" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_mic"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="12dp"
+            android:elevation="2dp"
+            android:paddingBottom="2dp"
+            android:src="@drawable/ic_voice_record_red"
+            android:tint="@android:color/holo_red_light"
+            android:translationZ="10dp"
+            android:visibility="gone" />
+
+
+        <LinearLayout
+            android:id="@+id/layout_dustin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:elevation="2dp"
+            android:gravity="start|bottom"
+            android:orientation="vertical"
+            android:translationZ="10dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_dustinCover"
+                android:layout_width="32dp"
+                android:layout_height="4dp"
+                android:src="@drawable/dustbin_cover_ic"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_dustin"
+                android:layout_width="16dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/dustbin_wheel_ic"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="32dp"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="0:00"
+            android:textSize="16sp"
+            android:translationZ="10dp"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_lock"
+        android:layout_width="56dp"
+        android:layout_height="180dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="2dp"
+        android:translationZ="2dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|top"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_lock"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="18dp"
+                android:src="@drawable/ic_lock_open" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_lockArrow"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="-8dp"
+                android:src="@drawable/ic_arrow_up" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_voice"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/ripple_button_image_chat"
+        android:elevation="2dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_voice_record"
+        android:translationZ="2dp" />
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_stop"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/ripple_button_image_chat"
+        android:elevation="2dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_send"
+        android:translationZ="2dp"
+        android:visibility="gone" />
+
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_send"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/ripple_button_image_chat"
+        android:elevation="2dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_send"
+        android:translationZ="2dp"
+        android:visibility="gone" />
+
+
+</FrameLayout>
