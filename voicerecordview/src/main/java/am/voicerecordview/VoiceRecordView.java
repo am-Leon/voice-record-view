@@ -163,6 +163,11 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
         btn_camera_pick.setVisibility(showCameraIcon ? View.VISIBLE : View.GONE);
     }
 
+    public void showChattingView(boolean status) {
+        card_message.setVisibility(status ? View.VISIBLE : View.GONE);
+        btn_voice.setVisibility(status ? View.VISIBLE : View.GONE);
+    }
+
     //---------------------------------------- ViewInit -------------------------------------
 
     public void viewInit(ViewGroup view) {
