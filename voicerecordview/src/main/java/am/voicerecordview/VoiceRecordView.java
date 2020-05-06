@@ -150,6 +150,10 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
         return btn_send;
     }
 
+    public AppCompatImageButton getVoiceButton() {
+        return btn_voice;
+    }
+
     public AppCompatImageButton getCameraButton() {
         return btn_camera_pick;
     }

@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements VoiceRecordView.R
         View containerView = recordView.setContainerView(R.layout.layout_chatting);
         recordView.setRecordingListener(this);
         recordView.showCameraIcon(false);
-        recordView.showChattingView(false);
 
         recordView.getCameraButton().setOnClickListener(v -> Toast.makeText(MainActivity.this, "Camera Icon Clicked", Toast.LENGTH_SHORT).show());
 
