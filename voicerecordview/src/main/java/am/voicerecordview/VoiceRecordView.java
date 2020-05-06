@@ -86,6 +86,7 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
     private Handler handler;
 
     private int audioTotalTime;
+    private int maxVoiceDuration;
     private TimerTask timerTask;
     private Timer audioTimer;
     private SimpleDateFormat timeFormatter;
@@ -170,6 +171,10 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
     public void showChattingView(boolean status) {
         card_message.setVisibility(status ? View.VISIBLE : View.GONE);
         btn_voice.setVisibility(status ? View.VISIBLE : View.GONE);
+    }
+
+    public void setMaxVoiceDuration(int seconds) {
+        this.maxVoiceDuration = seconds;
     }
 
     //---------------------------------------- ViewInit -------------------------------------
@@ -429,6 +434,7 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
                 handler.post(() -> {
                     txt_time.setText(timeFormatter.format(new Date(audioTotalTime * 1000)));
                     audioTotalTime++;
+                    handleMaxDuration();
                 });
             }
         };
@@ -437,6 +443,19 @@ public class VoiceRecordView implements TextWatcher, View.OnTouchListener {
         audioTimer.schedule(timerTask, 0, 1000);
 
         startTime = System.currentTimeMillis();
+    }
+
+
+    private void handleMaxDuration() {
+        if (maxVoiceDuration != 0) {
+            if (audioTotalTime == (maxVoiceDuration + 1)) {
+                if (isLocked) {
+                    isLocked = false;
+                    stopRecording(RecordingBehaviour.LOCK_DONE);
+                } else
+                    stopRecording(RecordingBehaviour.RELEASED);
+            }
+        }
     }
 
 

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements VoiceRecordView.R
         View containerView = recordView.setContainerView(R.layout.layout_chatting);
         recordView.setRecordingListener(this);
         recordView.showCameraIcon(false);
+//        recordView.setMaxVoiceDuration(20);
 
         recordView.getCameraButton().setOnClickListener(v -> Toast.makeText(MainActivity.this, "Camera Icon Clicked", Toast.LENGTH_SHORT).show());
 
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements VoiceRecordView.R
     public void onRecordingCompleted() {
         voiceClass.finishRecording();
 
-        Snackbar.make(findViewById(android.R.id.content), "Play Last Voice ?", BaseTransientBottomBar.LENGTH_INDEFINITE)
-                .setAction("Play", v -> voiceClass.playLastVoice()).show();
+//        Snackbar.make(findViewById(android.R.id.content), "Play Last Voice ?", BaseTransientBottomBar.LENGTH_INDEFINITE)
+//                .setAction("Play", v -> voiceClass.playLastVoice()).show();
     }
 
     @Override

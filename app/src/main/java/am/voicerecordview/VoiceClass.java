@@ -43,7 +43,7 @@ public class VoiceClass {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                startRecording();
+                Log.e(LOG_TAG, "Permission Allowed");
             else
                 Log.e(LOG_TAG, "Permission Denied");
         }
@@ -96,13 +96,16 @@ public class VoiceClass {
 
     public void finishRecording() {
         if (isPermissionAccepted()) {
-            recorder.stop();
-            recorder.reset();
-            recorder.release();
-            recorder = null;
+            try {
+                recorder.stop();
+                recorder.reset();
+                recorder.release();
+                recorder = null;
 
-            if (voiceFile != null && voiceCallback != null)
-                voiceCallback.onFinishRecording(voiceFile);
+                if (voiceFile != null && voiceCallback != null)
+                    voiceCallback.onFinishRecording(voiceFile);
+            } catch (NullPointerException ignored) {
+            }
         }
     }
 
